@@ -29,8 +29,8 @@ export default function Orders() {
       .then((response) => setgetdata(response.data));
   }, [getdata]);
 
-  let get_no_unit = getdata.map((data) => data.price_per_unit);
-  let get_current_share = getdata.map((data) => data.number_of_stocks);
+  let get_no_unit = getdata.map((data) => data.number_of_stocks);
+  let get_current_share = getdata.map((data) => data.price_per_unit);
   let curr_share_value = SharePrice.map((curr) => curr.value);
 
   const current_share_info = curr_share_value.map((dat, index) => {
@@ -44,8 +44,6 @@ export default function Orders() {
   const profit_loss = current_share_info.map((data, index) => {
     return data - current_user_share_info[index];
   });
-
-  console.log(current_share_info);
 
   return (
     <React.Fragment>
