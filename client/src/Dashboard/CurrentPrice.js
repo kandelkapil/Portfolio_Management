@@ -1,7 +1,7 @@
 export const SharePrice = [
   {
     name: "nabil",
-    value: 1020.0,
+    value: 1020,
   },
   {
     name: "sbi",
