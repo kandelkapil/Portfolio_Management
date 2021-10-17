@@ -29,15 +29,17 @@ export default function Orders() {
       .then((response) => setgetdata(response.data));
   }, [getdata]);
 
-  let get_no_unit = getdata.map((data) => data.number_of_stocks);
-  let get_current_share = getdata.map((data) => data.price_per_unit);
+  let get_no_unit = getdata.map((data) => data.no_of_units);
+  let get_current_share_value = getdata.map((data) => data.price_of_stock);
   let curr_share_value = SharePrice.map((curr) => curr.value);
+
+  let get_total_amount = getdata.map((val) => val.total_amount);
 
   const market_share_price = curr_share_value.map((dat, index) => {
     return dat * get_no_unit[index];
   });
 
-  const bought_share_price = get_current_share.map((dat, index) => {
+  const bought_share_price = get_current_share_value.map((dat, index) => {
     return dat * get_no_unit[index];
   });
 
@@ -45,8 +47,25 @@ export default function Orders() {
     return data - bought_share_price[index];
   });
 
-  console.table(curr_share_value);
+  let overall_total_units = 0;
+  for (var i = 0; i < get_no_unit.length; i++) {
+    overall_total_units += get_no_unit[i];
+  }
 
+  let overall_total_investment = 0;
+  for (var i = 0; i < get_total_amount.length; i++) {
+    overall_total_investment += get_total_amount[i];
+  }
+
+  let overall_profit_loss = 0;
+  for (var i = 0; i < profit_loss.length; i++) {
+    overall_profit_loss += profit_loss[i];
+  }
+
+  let overall_current_value = 0;
+  for (var i = 0; i < bought_share_price.length; i++) {
+    overall_current_value += bought_share_price[i];
+  }
   return (
     <React.Fragment>
       <Title>Available Shares</Title>
@@ -54,8 +73,8 @@ export default function Orders() {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Price Per Units</TableCell>
-            <TableCell>Number Of Stocks</TableCell>
+            <TableCell>Price Per Unit</TableCell>
+            <TableCell>Number of Units</TableCell>
             <TableCell>Total Share Amount</TableCell>
             <TableCell>Status</TableCell>
             <TableCell align="right">Transaction Date</TableCell>
@@ -63,13 +82,11 @@ export default function Orders() {
         </TableHead>
         <TableBody>
           {getdata.map((dat) => (
-            <TableRow key={dat.id}>
+            <TableRow key={dat._id}>
               <TableCell>{dat.name}</TableCell>
-              <TableCell>{dat.price_per_unit}</TableCell>
-              <TableCell>{dat.number_of_stocks}</TableCell>
-              <TableCell>
-                Rs {dat.number_of_stocks * dat.price_per_unit}
-              </TableCell>
+              <TableCell>{dat.price_of_stock}</TableCell>
+              <TableCell>{dat.no_of_units}</TableCell>
+              <TableCell>Rs {dat.total_amount}</TableCell>
               <TableCell>{dat.status}</TableCell>
               <TableCell align="right">
                 {new Intl.DateTimeFormat("en-GB", {
@@ -82,15 +99,34 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-
+      {/* Overall Profit And Loss */}
+      <Title>Overall</Title>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell>Profit/Loss</TableCell>
+            <TableCell>Total No Of Units</TableCell>
+            <TableCell>Total Investment</TableCell>
+            <TableCell>Current Value</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>{overall_profit_loss}</TableCell>
+            <TableCell>{overall_total_units}</TableCell>
+            <TableCell>{overall_total_investment}</TableCell>
+            <TableCell>{overall_current_value}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
       <Title>Profit And Loss</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Price Per Units</TableCell>
-            <TableCell>Number Of Stocks</TableCell>
-            {/* <TableCell>Total Share Amount</TableCell> */}
+            <TableCell>No Of Units</TableCell>
+
             <TableCell>Status</TableCell>
             <TableCell>Total Amount</TableCell>
             <TableCell>Profit/Loss</TableCell>
@@ -98,18 +134,25 @@ export default function Orders() {
         </TableHead>
         <TableBody>
           {getdata.map((dat) => (
-            <TableRow key={dat.id}>
+            <TableRow key={dat._id}>
               <TableCell>{dat.name}</TableCell>
-              <TableCell>{dat.price_per_unit}</TableCell>
-              <TableCell>{dat.number_of_stocks}</TableCell>
-              {/* <TableCell>{dat.number_of_stocks * dat.price_per_unit}</TableCell> */}
+              <TableCell>{dat.price_of_stock}</TableCell>
+              <TableCell>{dat.no_of_units}</TableCell>
               <TableCell>{dat.status}</TableCell>
-              <TableCell>
-                Rs {dat.number_of_stocks * dat.price_per_unit}{" "}
-              </TableCell>
+              <TableCell>Rs {dat.total_amount}</TableCell>
             </TableRow>
           ))}
         </TableBody>
+      </Table>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableRow>Total Price Per Unit</TableRow>
+            <TableCell>Total No Of Units</TableCell>
+            <TableCell>Total Investment</TableCell>
+            <TableCell>Current Value</TableCell>
+          </TableRow>
+        </TableHead>
       </Table>
     </React.Fragment>
   );
