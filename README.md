@@ -1,4 +1,4 @@
-# Project Name - Portfolio_ Management
+# Portfolio Management
 
 # Technologies :
   Frontend - ReactJs <br/>
