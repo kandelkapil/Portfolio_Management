@@ -33,17 +33,19 @@ export default function Orders() {
   let get_current_share = getdata.map((data) => data.price_per_unit);
   let curr_share_value = SharePrice.map((curr) => curr.value);
 
-  const current_share_info = curr_share_value.map((dat, index) => {
+  const market_share_price = curr_share_value.map((dat, index) => {
     return dat * get_no_unit[index];
   });
 
-  const current_user_share_info = get_current_share.map((dat, index) => {
+  const bought_share_price = get_current_share.map((dat, index) => {
     return dat * get_no_unit[index];
   });
 
-  const profit_loss = current_share_info.map((data, index) => {
-    return data - current_user_share_info[index];
+  const profit_loss = market_share_price.map((data, index) => {
+    return data - bought_share_price[index];
   });
+
+  console.table(curr_share_value);
 
   return (
     <React.Fragment>
@@ -65,7 +67,9 @@ export default function Orders() {
               <TableCell>{dat.name}</TableCell>
               <TableCell>{dat.price_per_unit}</TableCell>
               <TableCell>{dat.number_of_stocks}</TableCell>
-              <TableCell>Rs {dat.number_of_stocks * dat.price_per_unit}</TableCell>
+              <TableCell>
+                Rs {dat.number_of_stocks * dat.price_per_unit}
+              </TableCell>
               <TableCell>{dat.status}</TableCell>
               <TableCell align="right">
                 {new Intl.DateTimeFormat("en-GB", {
@@ -89,6 +93,7 @@ export default function Orders() {
             {/* <TableCell>Total Share Amount</TableCell> */}
             <TableCell>Status</TableCell>
             <TableCell>Total Amount</TableCell>
+            <TableCell>Profit/Loss</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -99,7 +104,9 @@ export default function Orders() {
               <TableCell>{dat.number_of_stocks}</TableCell>
               {/* <TableCell>{dat.number_of_stocks * dat.price_per_unit}</TableCell> */}
               <TableCell>{dat.status}</TableCell>
-              <TableCell>Rs {dat.number_of_stocks * dat.price_per_unit}</TableCell>
+              <TableCell>
+                Rs {dat.number_of_stocks * dat.price_per_unit}{" "}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
