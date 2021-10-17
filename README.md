@@ -5,7 +5,7 @@
   Backend - NodeJS <br/>
   Database - MongoDb Atlas <br/>
 
-# TO Install Node Pacakges
+# To Install Node Pacakges
 
   Run npm install inside the root folder <br/>
   Run npm install inside the client folder <br/>
