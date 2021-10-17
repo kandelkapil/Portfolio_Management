@@ -7,21 +7,12 @@ import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-// import { mainListItems } from "./listItems";
-// import Chart from "./Chart";
-import Deposits from "./Deposits";
 import Orders from "./Orders";
 import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import { useState } from "react";
@@ -30,9 +21,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { useEffect } from "react";
 import axios from "axios";
-import { CurrentPrice } from "./CurrentPrice";
+import DataTables from "./Data_Table";
 
 function Copyright(props) {
   return (
@@ -101,8 +91,8 @@ const mdTheme = createTheme();
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
 
-  const [stockno, setstockno] = useState("");
-  const [priceunit, setpriceunit] = useState("");
+  const [stockprice, setstockprice] = useState("");
+  const [stockunit, setstockunit] = useState("");
   const [stockdate, setstockdate] = useState("");
 
   const [dropdown, setdropdown] = useState("");
@@ -111,9 +101,9 @@ function DashboardContent() {
 
   const data = {
     name: dropdown,
-    number_of_stocks: stockno,
+    price_of_stock: stockprice,
     status: status,
-    price_per_unit: priceunit,
+    no_of_units: stockunit,
     transaction_date: stockdate,
   };
 
@@ -130,8 +120,8 @@ function DashboardContent() {
       });
 
     setstockdate("");
-    setstockno("");
-    setpriceunit("");
+    setstockprice("");
+    setstockunit("");
     setstatus("");
   };
 
@@ -155,9 +145,7 @@ function DashboardContent() {
               Dashboard!
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+              <Badge badgeContent={4} color="secondary"></Badge>
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -174,6 +162,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
+          {/* <DataTables /> */}
           <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               <Grid item xs={12} md={8} lg={9}>
@@ -206,13 +195,12 @@ function DashboardContent() {
                         <MenuItem value={"adbl"}>
                           Agricultural Bank Debenture 2083
                         </MenuItem>
-                        <MenuItem value={"sbl"}>SBL Debenture 2082</MenuItem>
                       </Select>
                     </FormControl>
                   </Paper>
 
                   <TextField
-                    label="Quantity"
+                    label="Price per Stock"
                     variant="filled"
                     color="success"
                     focused
@@ -220,8 +208,8 @@ function DashboardContent() {
                       width: 120,
                       color: "success.main",
                     }}
-                    value={stockno}
-                    onChange={(e) => setstockno(e.target.value)}
+                    value={stockprice}
+                    onChange={(e) => setstockprice(e.target.value)}
                   />
                   <FormControl component="fieldset">
                     <FormLabel component="legend">Status(Buy/Sell)</FormLabel>
@@ -229,7 +217,7 @@ function DashboardContent() {
                       row
                       aria-label="status"
                       name="row-radio-buttons-group"
-                      onChange={(e) => setstatus(e.target.value)}
+                      onClick={(e) => setstatus(e.target.value)}
                     >
                       <FormControlLabel
                         value={"buy"}
@@ -244,7 +232,7 @@ function DashboardContent() {
                     </RadioGroup>
                   </FormControl>
                   <TextField
-                    label="Price Per Unit"
+                    label="No Of Unit"
                     variant="filled"
                     color="success"
                     focused
@@ -252,8 +240,8 @@ function DashboardContent() {
                       width: 140,
                       color: "success.main",
                     }}
-                    value={priceunit}
-                    onChange={(e) => setpriceunit(e.target.value)}
+                    value={stockunit}
+                    onChange={(e) => setstockunit(e.target.value)}
                   />
                   <TextField
                     label="transaction DAte"
@@ -273,20 +261,11 @@ function DashboardContent() {
                   </Button>
                 </form>
               </Grid>
-              {/* Recent Deposits */}
+
               <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
+                <DataTables />
               </Grid>
-              {/* Recent Orders */}
+              {/* Recent Orders*/}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <Orders />
