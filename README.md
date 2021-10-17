@@ -31,4 +31,9 @@ Browse Through http://localhost:3000/ to view the frontend <br/>
 
 Any Problem running the Project feel free to contact me at kandelkapil01@gmail.com <br/>
 
+#Current Workflow <br/>
+currently works only for 5 data in serial order from dropdown order only <br/>
+Work on Progress
+ 
+
 
