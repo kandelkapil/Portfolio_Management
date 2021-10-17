@@ -65,7 +65,7 @@ export default function Orders() {
               <TableCell>{dat.name}</TableCell>
               <TableCell>{dat.price_per_unit}</TableCell>
               <TableCell>{dat.number_of_stocks}</TableCell>
-              <TableCell>{dat.number_of_stocks * dat.price_per_unit}</TableCell>
+              <TableCell>Rs {dat.number_of_stocks * dat.price_per_unit}</TableCell>
               <TableCell>{dat.status}</TableCell>
               <TableCell align="right">
                 {new Intl.DateTimeFormat("en-GB", {
@@ -99,7 +99,7 @@ export default function Orders() {
               <TableCell>{dat.number_of_stocks}</TableCell>
               {/* <TableCell>{dat.number_of_stocks * dat.price_per_unit}</TableCell> */}
               <TableCell>{dat.status}</TableCell>
-              <TableCell>{dat.number_of_stocks * dat.price_per_unit}</TableCell>
+              <TableCell>Rs {dat.number_of_stocks * dat.price_per_unit}</TableCell>
             </TableRow>
           ))}
         </TableBody>
