@@ -67,7 +67,13 @@ export default function Orders() {
               <TableCell>{dat.number_of_stocks}</TableCell>
               <TableCell>{dat.number_of_stocks * dat.price_per_unit}</TableCell>
               <TableCell>{dat.status}</TableCell>
-              <TableCell align="right">{`${dat.transaction_date}`}</TableCell>
+              <TableCell align="right">
+                {new Intl.DateTimeFormat("en-GB", {
+                  year: "numeric",
+                  month: "long",
+                  day: "2-digit",
+                }).format(new Date(dat.transaction_date))}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
