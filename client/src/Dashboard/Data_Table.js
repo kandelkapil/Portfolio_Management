@@ -6,10 +6,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import CurrentPrice from "./CurrentPrice";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, value) {
+  return { name, value };
 }
 
 const rows = [
@@ -23,12 +22,12 @@ const rows = [
 
 export default function DenseTable() {
   return (
-    <TableContainer component={Paper} sx={{ width: 300 }}>
+    <TableContainer component={Paper} sx={{ width: 310 }}>
       <Table sx={{ minWidth: 270 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Trading Companies</TableCell>
-            <TableCell align="right">Price Per Unit</TableCell>
+            <TableCell>Today's Price</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -40,7 +39,7 @@ export default function DenseTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
