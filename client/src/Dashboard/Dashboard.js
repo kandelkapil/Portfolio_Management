@@ -23,6 +23,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
 import DataTables from "./Data_Table";
+import { SharePrice } from "./CurrentPrice";
 
 function Copyright(props) {
   return (
@@ -99,12 +100,42 @@ function DashboardContent() {
 
   const [status, setstatus] = useState();
 
+  let market_shares_values = SharePrice.map((curr) => curr.value);
+  let market_share_name = SharePrice.map((curr) => curr.name);
+
+  let shares = ["nabil", "sbi", "prabhu", "nic", "adbl"];
+
+  let calculate_market_values = {};
+
+  for (var i = 0; i < shares.length; i++) {
+    calculate_market_values[shares[i]] = market_shares_values[i];
+  }
+
+  let market_value = null;
+
+  market_share_name.forEach((val) => {
+    if (val === "nabil" && dropdown === "nabil") {
+      market_value = stockunit * calculate_market_values.nabil;
+    } else if (val === "sbi" && dropdown === "sbi") {
+      market_value = stockunit * calculate_market_values.sbi;
+    } else if (val === "prabhu" && dropdown === "prabhu") {
+      market_value = stockunit * calculate_market_values.prabhu;
+    } else if (val === "nic" && dropdown === "nic") {
+      market_value = stockunit * calculate_market_values.nic;
+    } else if (val === "adbl" && dropdown === "adbl") {
+      market_value = stockunit * calculate_market_values.adbl;
+    }
+  });
+
+  console.log(market_value);
+
   const data = {
     name: dropdown,
     price_of_stock: stockprice,
     status: status,
     no_of_units: stockunit,
     transaction_date: stockdate,
+    market_value: market_value,
   };
 
   // console.log(data);
