@@ -5,7 +5,7 @@ const PostSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  number_of_stocks: {
+  price_of_stock: {
     type: Number,
     required: true,
   },
@@ -13,16 +13,19 @@ const PostSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  price_per_unit: {
+  no_of_units: {
     type: Number,
     required: true,
   },
+  user_value: {
+    type: Number,
+  },
   transaction_date: {
     type: Date,
-    required: true,
+  },
+  market_value: {
+    type: Number,
   },
 });
 
 module.exports = mongoose.model("Post", PostSchema);
-
-
