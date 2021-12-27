@@ -2,6 +2,9 @@
   "name": "my_project",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "npm": "8.3.0"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js"
